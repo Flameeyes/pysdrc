@@ -1,5 +1,3 @@
-# SPDX-FileCopyrightText: 2020 Diego Elio PettenÃ²
-# SPDX-FileCopyrightText: 2020 Diego Elio PettenÃƒÂ²
 # SPDX-FileCopyrightText: 2020 Diego Elio Pettenò
 #
 # SPDX-License-Identifier: MIT

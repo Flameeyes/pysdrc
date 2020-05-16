@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2020 Diego Elio Pettenò
+#
+# SPDX-License-Identifier: Unlicense
+
+[tool.black]
+line-length = 88
+target-version = ['py37']
+
+[tool.isort]
+# These settings ensure that black and isort don't disagree on the imports.
+line_length = 88
+multi_line_output = 3
+include_trailing_comma = true

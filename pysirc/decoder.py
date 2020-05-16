@@ -4,8 +4,10 @@
 
 """Decoder interfaces for SIRC protocol."""
 
+
 class DecodeException(Exception):
     """Raised when a set of pulse timings are not a valid SIRC command."""
+
 
 def _bits_to_value_lsb(bits):
     result = 0

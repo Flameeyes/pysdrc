@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2002 Diego Elio Pettenò
+# SPDX-FileCopyrightText: 2020 Diego Elio Pettenò
 #
 # SPDX-License-Identifier: Unlicense
 

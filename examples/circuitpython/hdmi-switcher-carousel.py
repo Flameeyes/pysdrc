@@ -32,6 +32,6 @@ inputs = [
 
 while True:
     for index, pulses in enumerate(inputs):
-        print("Selecting input %d" % index + 1)
+        print("Selecting input %d" % (index + 1))
         transmitter.transmit_pulses(pulses)
         time.sleep(30)

@@ -20,7 +20,7 @@ class SircTransmitter:
         """Transmit a set of pre-calculated pulses."""
 
         if not isinstance(pulses, array.array):
-            pulses = array.array('H', pulses)
+            pulses = array.array("H", pulses)
 
         for _ in range(4):
             self._pulseout.send(pulses)

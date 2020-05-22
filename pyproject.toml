@@ -20,4 +20,5 @@ multi_line_output = 3
 include_trailing_comma = true
 
 known_standard_library = ['pulseio', 'board']
+known_third_party = ['adafruit_irremote']
 known_first_party = ['sirc_transmitter']

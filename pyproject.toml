@@ -19,5 +19,5 @@ line_length = 88
 multi_line_output = 3
 include_trailing_comma = true
 
-known_third_party = ['pulseio', 'board']
+known_standard_library = ['pulseio', 'board']
 known_first_party = ['sirc_transmitter']

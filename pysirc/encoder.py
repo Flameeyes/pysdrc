@@ -9,6 +9,14 @@ class EncodeError(ValueError):
     """Raised when the provided value is not valid for the protocol."""
 
 
+class SIRCEncodeError(EncodeError):
+    pass
+
+
+class NECEncodeError(EncodeError):
+    pass
+
+
 def _value_to_pulses(value, bits):
     pulses = []
     for _ in range(bits):
@@ -42,5 +50,30 @@ def encode_sirc(command, device, extended_device=None):
         pulses.extend(_value_to_pulses(device, 5))
     if extended_device:
         pulses.extend(_value_to_pulses(extended_device, 8))
+
+    return pulses
+
+
+def encode_nec(address, command):
+    if command >= 2 ** 8:
+        raise EncodeError("Invalid command %x" % command)
+
+    if address >= 2 ** 16:
+        raise EncodeError("Invalid address %x" % address)
+    elif address >= 2 ** 8:
+        address_low = address & 0xFF
+        address_high = (address >> 8) & 0xFF
+
+        if address_low == ~address_high & 0xFF:
+            raise EncodeError("Invalid address %x (low == ~high)" % address)
+    else:
+        address_low = address
+        address_high = ~address & 0xFF
+
+    pulses = [9000, 2250]
+    pulses.extend(_value_to_pulses(address_low))
+    pulses.extend(_value_to_pulses(address_high))
+    pulses.extend(_value_to_pulses(command))
+    pulses.extend(_value_to_pulses(~command & 0xFF))
 
     return pulses

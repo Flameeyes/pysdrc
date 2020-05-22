@@ -22,5 +22,5 @@ class SircTransmitter:
             time.sleep(0.025)
 
     def transmit_command(self, command, device, extended_device=None):
-        pulses = encoder.encode_sir(command, device, extended_device)
+        pulses = encoder.encode_sirc(command, device, extended_device)
         self.transmit_pulses(pulses)

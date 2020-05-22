@@ -4,6 +4,7 @@
 
 """CircuitPython-compatible transmitter for Sony SIRC protocol."""
 
+import array
 import pulseio
 import time
 
@@ -17,6 +18,10 @@ class SircTransmitter:
 
     def transmit_pulses(self, pulses):
         """Transmit a set of pre-calculated pulses."""
+
+        if not isinstance(pulses, array.array):
+            pulses = array.array('H', pulses)
+
         for _ in range(4):
             self._pulseout.send(pulses)
             time.sleep(0.025)

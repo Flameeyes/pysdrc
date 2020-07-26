@@ -88,7 +88,7 @@ def decode_sirc(pulses):
 
 
 # Constant object to signify a NEC repeat code.
-NEC_REPEAT = object()
+NEC_REPEAT = "NEC Repeat"
 
 
 def decode_nec(pulses):

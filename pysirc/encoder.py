@@ -70,10 +70,11 @@ def encode_nec(address, command):
         address_low = address
         address_high = ~address & 0xFF
 
-    pulses = [9000, 2250]
+    pulses = [9000, 4500]
     pulses.extend(_value_to_pulses(address_low, 8))
     pulses.extend(_value_to_pulses(address_high, 8))
     pulses.extend(_value_to_pulses(command, 8))
     pulses.extend(_value_to_pulses(~command & 0xFF, 8))
+    pulses.append(550)
 
     return pulses

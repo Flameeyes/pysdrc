@@ -19,6 +19,7 @@ line_length = 88
 multi_line_output = 3
 include_trailing_comma = true
 
-known_standard_library = ['pulseio', 'board']
-known_third_party = ['adafruit_irremote']
+known_circuitpython = ['board', 'pulseio']
+known_third_party = ['adafruit_irremote', 'click']
 known_first_party = ['sirc_transmitter']
+sections = "FUTURE,STDLIB,CIRCUITPYTHON,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"

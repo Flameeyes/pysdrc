@@ -2,9 +2,8 @@
 #
 # SPDX-License-Identifier: Unlicense
 
-from setuptools import setup
-
 # Ensure it's present.
 import setuptools_scm  # noqa: F401
+from setuptools import setup
 
 setup()

@@ -15,6 +15,7 @@ import csv
 import logging
 
 import click
+
 import pysirc.decoder
 
 

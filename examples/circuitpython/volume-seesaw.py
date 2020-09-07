@@ -14,8 +14,9 @@ corresponding to ON (common cathode or via transistor).
 
 """
 
-import board
 import time
+
+import board
 
 import sirc_transmitter
 

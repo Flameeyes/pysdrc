@@ -5,8 +5,9 @@
 """CircuitPython-compatible transmitter for Sony SIRC protocol."""
 
 import array
-import pulseio
 import time
+
+import pulseio
 
 from pysirc import encoder
 

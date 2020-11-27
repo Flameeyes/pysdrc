@@ -54,6 +54,9 @@ def encode_sirc(command, device, extended_device=None):
     return pulses
 
 
+NEC_REPEAT = (9200, 2250, 560)
+
+
 def _nec_value_to_pulses(value, bits):
     pulses = []
     for _ in range(bits):

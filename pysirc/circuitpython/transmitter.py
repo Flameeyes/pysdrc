@@ -48,3 +48,6 @@ class NECTransmitter(Transmitter):
     def transmit_command(self, address, command):
         pulses = encoder.encode_nec(address, command)
         self.transmit_pulses(pulses)
+
+    def transmit_repeat(self):
+        self.transmit_pulses(encoder.NEC_REPEAT)

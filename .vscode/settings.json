@@ -1,0 +1,9 @@
+{
+    "python.autoComplete.extraPaths": [
+        "c:\\Users\\flame\\.vscode\\extensions\\joedevivo.vscode-circuitpython-0.1.3\\boards\\0x239A\\0x801F",
+        "c:\\Users\\flame\\.vscode\\extensions\\joedevivo.vscode-circuitpython-0.1.3\\stubs",
+        "c:\\Users\\flame\\AppData\\Roaming\\Code\\User\\globalStorage\\joedevivo.vscode-circuitpython\\bundle\\20201126\\adafruit-circuitpython-bundle-py-20201126\\lib"
+    ],
+    "circuitpython.board.vid": "0x239A",
+    "circuitpython.board.pid": "0x801F"
+}

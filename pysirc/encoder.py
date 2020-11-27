@@ -17,7 +17,7 @@ class NECEncodeError(EncodeError):
     pass
 
 
-def _value_to_pulses(value, bits):
+def _sirc_value_to_pulses(value, bits):
     pulses = []
     for _ in range(bits):
         if value & 1:
@@ -43,13 +43,26 @@ def encode_sirc(command, device, extended_device=None):
             raise EncodeError("Invalid device ID %x" % device)
 
     pulses = [2400]
-    pulses.extend(_value_to_pulses(command, 7))
+    pulses.extend(_sirc_value_to_pulses(command, 7))
     if device >= 2 ** 5:
-        pulses.extend(_value_to_pulses(device, 8))
+        pulses.extend(_sirc_value_to_pulses(device, 8))
     else:
-        pulses.extend(_value_to_pulses(device, 5))
+        pulses.extend(_sirc_value_to_pulses(device, 5))
     if extended_device:
-        pulses.extend(_value_to_pulses(extended_device, 8))
+        pulses.extend(_sirc_value_to_pulses(extended_device, 8))
+
+    return pulses
+
+
+def _nec_value_to_pulses(value, bits):
+    pulses = []
+    for _ in range(bits):
+        if value & 1:
+            pulses.extend((560, 2250 - 560))
+        else:
+            pulses.extend((560, 560))
+
+        value = value >> 1
 
     return pulses
 
@@ -71,10 +84,10 @@ def encode_nec(address, command):
         address_high = ~address & 0xFF
 
     pulses = [9000, 4500]
-    pulses.extend(_value_to_pulses(address_low, 8))
-    pulses.extend(_value_to_pulses(address_high, 8))
-    pulses.extend(_value_to_pulses(command, 8))
-    pulses.extend(_value_to_pulses(~command & 0xFF, 8))
-    pulses.append(550)
+    pulses.extend(_nec_value_to_pulses(address_low, 8))
+    pulses.extend(_nec_value_to_pulses(address_high, 8))
+    pulses.extend(_nec_value_to_pulses(command, 8))
+    pulses.extend(_nec_value_to_pulses(~command & 0xFF, 8))
+    pulses.append(560)
 
     return pulses

@@ -16,8 +16,10 @@ from pysirc import encoder
 class Transmitter:
     """Generic transmitter for infrared remotes."""
 
-    def __init__(self, pin, frequency=38_000, duty_cycle=2 ** 15):
-        self._pwm = pulseio.PWMOut(pin, frequency=frequency, duty_cycle=duty_cycle)
+    def __init__(self, pin, carrier_frequency=38_000, duty_cycle=2 ** 15):
+        self._pwm = pulseio.PWMOut(
+            pin, frequency=carrier_frequency, duty_cycle=duty_cycle
+        )
         self._pulseout = pulseio.PulseOut(self._pwm)
 
     def transmit_pulses(self, pulses):
@@ -34,8 +36,10 @@ class Transmitter:
 class SIRCTransmitter(Transmitter):
     """Transmitter for Sony SIRC remote protocol."""
 
-    def __init__(self, pin, frequency=40_000, duty_cycle=2 ** 15):
-        super().__init__(pin, frequency=frequency, duty_cycle=duty_cycle)
+    def __init__(self, pin, carrier_frequency=40_000, duty_cycle=2 ** 15):
+        super().__init__(
+            pin, carrier_frequency=carrier_frequency, duty_cycle=duty_cycle
+        )
 
     def transmit_command(self, command, device, extended_device=None):
         pulses = encoder.encode_sirc(command, device, extended_device)

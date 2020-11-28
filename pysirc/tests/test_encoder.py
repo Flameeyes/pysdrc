@@ -35,5 +35,6 @@ class EncoderTest(unittest.TestCase):
             600,
             600,
             600,
+            600,
         ]
         self.assertEqual(encoder.encode_sirc(18, 1), pulses)

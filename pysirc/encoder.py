@@ -21,7 +21,7 @@ def _sirc_value_to_pulses(value, bits):
     pulses = []
     for _ in range(bits):
         if value & 1:
-            pulses.extend((600, 1200))
+            pulses.extend((1200, 600))
         else:
             pulses.extend((600, 600))
 
@@ -42,7 +42,7 @@ def encode_sirc(command, device, extended_device=None):
         if device >= 2 ** 8:
             raise EncodeError("Invalid device ID %x" % device)
 
-    pulses = [2400]
+    pulses = [2400, 600]
     pulses.extend(_sirc_value_to_pulses(command, 7))
     if device >= 2 ** 5:
         pulses.extend(_sirc_value_to_pulses(device, 8))

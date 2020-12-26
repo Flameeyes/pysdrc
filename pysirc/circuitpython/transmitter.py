@@ -56,8 +56,17 @@ class SIRCTransmitter(Transmitter):
             default_repeat=default_repeat,
         )
 
-    def transmit_command(self, command, device, extended_device=None, repeat=None):
-        pulses = encoder.encode_sirc(command, device, extended_device)
+    def transmit_command(
+        self,
+        command,
+        device,
+        extended_device=None,
+        repeat=None,
+        force_8bit_device=False,
+    ):
+        pulses = encoder.encode_sirc(
+            command, device, extended_device, force_8bit_device=force_8bit_device
+        )
         self.transmit_pulses(pulses, repeat=repeat)
 
 

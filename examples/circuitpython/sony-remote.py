@@ -16,8 +16,8 @@ import board
 from pysirc.circuitpython import transmitter
 
 _DEVICES = {
-    "TV": (1, None),
-    "VCR": (5, None),
+    "TV": (1, None, False),
+    "VCR": (5, None, False),
 }
 
 _COMMANDS = {
@@ -62,6 +62,11 @@ while True:
             if request[1:] in _DEVICES:
                 selected_device = request[1:]
             else:
+                if "*" in request:
+                    force_8bit_device = True
+                    request, _ = request.split("*", 1)
+                else:
+                    force_8bit_device = False
                 if "," in request:
                     device, extended_device = request[1:].split(",")
                 else:
@@ -72,17 +77,24 @@ while True:
                 _DEVICES[selected_device] = (
                     int(device),
                     int(extended_device) if extended_device is not None else None,
+                    force_8bit_device,
                 )
         elif request.startswith("#"):
-            device, extended_device = _DEVICES[selected_device]
+            device, extended_device, force_8bit_device = _DEVICES[selected_device]
             command = int(request[1:])
             sony_transmitter.transmit_command(
-                command, device, extended_device=extended_device
+                command,
+                device,
+                extended_device=extended_device,
+                force_8bit_device=force_8bit_device,
             )
         elif request in _COMMANDS:
-            device, extended_device = _DEVICES[selected_device]
+            device, extended_device, force_8bit_device = _DEVICES[selected_device]
             sony_transmitter.transmit_command(
-                _COMMANDS[request], device, extended_device=extended_device
+                _COMMANDS[request],
+                device,
+                extended_device=extended_device,
+                force_8bit_device=force_8bit_device,
             )
         else:
             raise ValueError("Unknown command %r" % request)

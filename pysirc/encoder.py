@@ -30,7 +30,7 @@ def _sirc_value_to_pulses(value, bits):
     return pulses
 
 
-def encode_sirc(command, device, extended_device=None):
+def encode_sirc(command, device, extended_device=None, force_8bit_device=False):
     if command >= 2 ** 12:
         raise EncodeError("Invalid command %x" % command)
     if extended_device:
@@ -44,7 +44,7 @@ def encode_sirc(command, device, extended_device=None):
 
     pulses = [2400, 600]
     pulses.extend(_sirc_value_to_pulses(command, 7))
-    if device >= 2 ** 5:
+    if device >= 2 ** 5 or force_8bit_device:
         pulses.extend(_sirc_value_to_pulses(device, 8))
     else:
         pulses.extend(_sirc_value_to_pulses(device, 5))

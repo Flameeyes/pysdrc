@@ -42,7 +42,8 @@ Type the command you want to send to your device from the available list.
 You can send an arbitrary commands by prefixing their number with #
 (e.g. #21).
 
-Change the selected device by prefixing its name with ! (e.g. !TV).
+Change the selected device by prefixing its name with ! (e.g. !TV), or by
+providing a specific device target (e.g. !151).
 
 Available commands: %s
 Available devices: %s
@@ -61,7 +62,17 @@ while True:
             if request[1:] in _DEVICES:
                 selected_device = request[1:]
             else:
-                raise ValueError("Unknown device %r" % request[1:])
+                if "," in request:
+                    device, extended_device = request[1:].split(",")
+                else:
+                    device = request[1:]
+                    extended_device = None
+
+                selected_device = request[1:]
+                _DEVICES[selected_device] = (
+                    int(device),
+                    int(extended_device) if extended_device is not None else None,
+                )
         elif request.startswith("#"):
             device, extended_device = _DEVICES[selected_device]
             command = int(request[1:])

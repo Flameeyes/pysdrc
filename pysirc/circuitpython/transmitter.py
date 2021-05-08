@@ -3,14 +3,40 @@
 #
 # SPDX-License-Identifier: MIT
 
-"""CircuitPython-compatible infrared remote transmitters."""
+"""CircuitPython-compatible infrared remote transmitters.
+
+Hardware compatibility is finnicky. This code has been tested with the following boards:
+
+ - Feather M4 Express
+ - Feather M0
+ - Feather nrf52840
+ - Feather S2
+ - Trinket M0
+
+Most of these boards only support a single transmitter for the lifetime of the board,
+the exception being the Feather S2, that appears to support multiple transmitters
+correctly.
+
+Note that while it is possible to use this transmitter to simulate the output of an
+Infrared _decoder_ (which does not include a carrier wave), this is only been tested
+to work on the following:
+
+ - Feather nrf52840
+
+And has been confirmed not working on Feather S2.
+"""
 
 import array
+import sys
 import time
 
 import pulseio
 
 from pysirc import encoder
+
+# This is very annoying: different CircuitPython ports have different interfaces
+# for the PulseOut class, so we need to abstract the PulseOut creation ourselves.
+_PULSEOUT_NO_CARRIER_PLATFORMS = {"Espressif ESP32-S2"}
 
 
 class Transmitter:
@@ -19,10 +45,16 @@ class Transmitter:
     def __init__(
         self, pin, carrier_frequency=38_000, duty_cycle=2 ** 15, default_repeat=1
     ):
-        self._pwm = pulseio.PWMOut(
-            pin, frequency=carrier_frequency, duty_cycle=duty_cycle
-        )
-        self._pulseout = pulseio.PulseOut(self._pwm)
+        if sys.platform in _PULSEOUT_NO_CARRIER_PLATFORMS:
+            self._pulseout = pulseio.PulseOut(
+                pin=pin, frequency=carrier_frequency, duty_cycle=duty_cycle
+            )
+        else:
+            self._pwm = pulseio.PWMOut(
+                pin, frequency=carrier_frequency, duty_cycle=duty_cycle
+            )
+            self._pulseout = pulseio.PulseOut(self._pwm)
+
         self._default_repeat = default_repeat
         if default_repeat < 1:
             raise ValueError(

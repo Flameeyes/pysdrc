@@ -24,6 +24,8 @@ known_third_party = ['adafruit_irremote', 'click']
 known_first_party = ['sirc_transmitter']
 sections = "FUTURE,STDLIB,CIRCUITPYTHON,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 
+[tool.setuptools_scm]
+
 [tool.pytest.ini_options]
 addopts = "--color=yes --ignore=setup.py -ra"
 timeout = 120

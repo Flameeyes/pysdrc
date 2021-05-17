@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2020 Facebook Inc.
 #
 # SPDX-License-Identifier: MIT
+# type: ignore
 """Scriptable Sony Remote in CircuitPython.
 
 The example expects you copied the pysdrc package to the CIRCUITPY volume.

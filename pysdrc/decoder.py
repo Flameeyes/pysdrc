@@ -17,7 +17,7 @@ class NECDecodeException(DecodeException):
     pass
 
 
-def _bits_to_value_lsb(bits):
+def _bits_to_value_lsb(bits: list):
     result = 0
 
     for position, value in enumerate(bits):
@@ -26,7 +26,7 @@ def _bits_to_value_lsb(bits):
     return result
 
 
-def _pulses_to_bits(pulses):
+def _pulses_to_bits(pulses: list):
     bits = []
     evens = pulses[0::2]
     odds = pulses[1::2]
@@ -41,7 +41,7 @@ def _pulses_to_bits(pulses):
     return bits
 
 
-def decode_sirc(pulses):
+def decode_sirc(pulses: list) -> tuple:
     """Decode SIRC (Sony) protocol commands from raw pulses.
 
     The Sony command protocol uses a different format than the normal RC-5,
@@ -91,7 +91,7 @@ def decode_sirc(pulses):
 NEC_REPEAT = "NEC Repeat"
 
 
-def decode_nec(pulses):
+def decode_nec(pulses: list):
     """Decode (extended) NEC protocol commands from raw pulses.
 
     The NEC command protocol is a structured 16-bit protocol that can be validated.

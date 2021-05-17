@@ -43,8 +43,12 @@ class Transmitter:
     """Generic transmitter for infrared remotes."""
 
     def __init__(
-        self, pin, carrier_frequency=38_000, duty_cycle=2 ** 15, default_repeat=1
-    ):
+        self,
+        pin,
+        carrier_frequency: int = 38_000,
+        duty_cycle: int = 2 ** 15,
+        default_repeat: int = 1,
+    ) -> None:
         if sys.platform in _PULSEOUT_NO_CARRIER_PLATFORMS:
             self._pulseout = pulseio.PulseOut(
                 pin=pin, frequency=carrier_frequency, duty_cycle=duty_cycle
@@ -68,10 +72,10 @@ class Transmitter:
             repeat = self._default_repeat
 
         if not isinstance(pulses, array.array):
-            pulses = array.array("H", pulses)
+            pulse_array = array.array("H", pulses)
 
         for _ in range(repeat):
-            self._pulseout.send(pulses)
+            self._pulseout.send(pulse_array)
             time.sleep(0.025)
 
 
@@ -79,8 +83,12 @@ class SIRCTransmitter(Transmitter):
     """Transmitter for Sony SIRC remote protocol."""
 
     def __init__(
-        self, pin, carrier_frequency=40_000, duty_cycle=2 ** 15, default_repeat=4
-    ):
+        self,
+        pin,
+        carrier_frequency: int = 40_000,
+        duty_cycle: int = 2 ** 15,
+        default_repeat: int = 4,
+    ) -> None:
         super().__init__(
             pin,
             carrier_frequency=carrier_frequency,
@@ -90,12 +98,12 @@ class SIRCTransmitter(Transmitter):
 
     def transmit_command(
         self,
-        command,
-        device,
+        command: int,
+        device: int,
         extended_device=None,
         repeat=None,
-        force_8bit_device=False,
-    ):
+        force_8bit_device: bool = False,
+    ) -> None:
         pulses = encoder.encode_sirc(
             command, device, extended_device, force_8bit_device=force_8bit_device
         )
@@ -105,9 +113,9 @@ class SIRCTransmitter(Transmitter):
 class NECTransmitter(Transmitter):
     """Transmitter for NEC remote protocol."""
 
-    def transmit_command(self, address, command, repeat=None):
+    def transmit_command(self, address: int, command: int, repeat=None) -> None:
         pulses = encoder.encode_nec(address, command)
         self.transmit_pulses(pulses, repeat=repeat)
 
-    def transmit_repeat(self, repeat=None):
+    def transmit_repeat(self, repeat=None) -> None:
         self.transmit_pulses(encoder.NEC_REPEAT, repeat=repeat)

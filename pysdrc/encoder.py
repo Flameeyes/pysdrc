@@ -17,8 +17,8 @@ class NECEncodeError(EncodeError):
     pass
 
 
-def _sirc_value_to_pulses(value, bits):
-    pulses = []
+def _sirc_value_to_pulses(value: int, bits: int) -> list:
+    pulses: list = []
     for _ in range(bits):
         if value & 1:
             pulses.extend((1200, 600))
@@ -30,7 +30,9 @@ def _sirc_value_to_pulses(value, bits):
     return pulses
 
 
-def encode_sirc(command, device, extended_device=None, force_8bit_device=False):
+def encode_sirc(
+    command: int, device: int, extended_device=None, force_8bit_device: bool = False
+) -> list:
     if command >= 2 ** 12:
         raise EncodeError("Invalid command %x" % command)
     if extended_device:
@@ -57,8 +59,8 @@ def encode_sirc(command, device, extended_device=None, force_8bit_device=False):
 NEC_REPEAT = (9200, 2250, 560)
 
 
-def _nec_value_to_pulses(value, bits):
-    pulses = []
+def _nec_value_to_pulses(value: int, bits: int) -> list:
+    pulses: list = []
     for _ in range(bits):
         if value & 1:
             pulses.extend((560, 2250 - 560))
@@ -70,7 +72,7 @@ def _nec_value_to_pulses(value, bits):
     return pulses
 
 
-def encode_nec(address, command):
+def encode_nec(address: int, command: int) -> list:
     if command >= 2 ** 8:
         raise EncodeError("Invalid command %x" % command)
 

@@ -17,12 +17,12 @@ import board
 
 from pysdrc.circuitpython import transmitter
 
-transmitter = transmitter.NECTransmitter(board.D5)
+nec_transmitter = transmitter.NECTransmitter(board.D5)
 
 inputs = [5, 7, 8, 9, 27]
 
 while True:
     for index, input_id in enumerate(inputs):
         print("Selecting input %d" % (index + 1))
-        transmitter.transmit_command(128, input_id)
+        nec_transmitter.transmit_command(128, input_id)
         time.sleep(30)

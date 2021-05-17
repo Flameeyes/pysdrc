@@ -17,13 +17,13 @@ import board
 
 from pysdrc.circuitpython import transmitter
 
-transmitter = transmitter.SIRCTransmitter(board.D5)
+sirc_transmitter = transmitter.SIRCTransmitter(board.D5)
 
 while True:
     print("Volume++")
-    transmitter.transmit_command(18, 1)
+    sirc_transmitter.transmit_command(18, 1)
     time.sleep(2)
 
     print("Volume--")
-    transmitter.transmit_command(19, 1)
+    sirc_transmitter.transmit_command(19, 1)
     time.sleep(2)

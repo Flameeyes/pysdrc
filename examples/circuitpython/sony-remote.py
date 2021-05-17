@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 """Scriptable Sony Remote in CircuitPython.
 
-The example expects you copied the pysirc package to the CIRCUITPY volume.
+The example expects you copied the pysdrc package to the CIRCUITPY volume.
 
 It also assumes the correct IR LED to be connected to the D5 line, with HIGH
 corresponding to ON (common cathode or via transistor).
@@ -13,7 +13,7 @@ import time
 
 import board
 
-from pysirc.circuitpython import transmitter
+from pysdrc.circuitpython import transmitter
 
 _DEVICES = {
     "TV": (1, None, False),

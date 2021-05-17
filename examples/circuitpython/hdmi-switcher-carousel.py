@@ -4,7 +4,7 @@
 
 """Example CircuitPython code that rotates the input on an HDMI switcher.
 
-The example expects you copied the pysirc package to the CIRCUITPY volume.
+The example expects you copied the pysdrc package to the CIRCUITPY volume.
 
 It also assumes the correct IR LED to be connected to the D5 line, with HIGH
 corresponding to ON (common cathode or via transistor).
@@ -15,7 +15,7 @@ import time
 
 import board
 
-from pysirc.circuitpython import transmitter
+from pysdrc.circuitpython import transmitter
 
 transmitter = transmitter.NECTransmitter(board.D5)
 

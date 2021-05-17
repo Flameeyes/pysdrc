@@ -4,7 +4,7 @@
 
 import unittest
 
-from pysirc import decoder
+from pysdrc import decoder
 
 
 class SIRCDecoderTest(unittest.TestCase):

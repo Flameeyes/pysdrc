@@ -16,7 +16,7 @@ import logging
 
 import click
 
-import pysirc.decoder
+import pysdrc.decoder
 
 
 def times_to_pulses(times):
@@ -42,15 +42,15 @@ def extract_times_from_reader(reader):
 
 def try_all_decoders(pulses):
     try:
-        code = pysirc.decoder.decode_sirc(pulses)
+        code = pysdrc.decoder.decode_sirc(pulses)
         return "SIRC", code
-    except pysirc.decoder.SIRCDecodeException as e:  # failed to decode
+    except pysdrc.decoder.SIRCDecodeException as e:  # failed to decode
         logging.debug(f"Failed to decode as SIRC: {e.args}")
 
     try:
-        code = pysirc.decoder.decode_nec(pulses)
+        code = pysdrc.decoder.decode_nec(pulses)
         return "NEC", code
-    except pysirc.decoder.NECDecodeException as e:
+    except pysdrc.decoder.NECDecodeException as e:
         logging.debug(f"Failed to decode as NEC: {e.args}")
 
     return "RAW", pulses

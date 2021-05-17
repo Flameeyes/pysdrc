@@ -8,7 +8,7 @@ import pulseio
 
 import adafruit_irremote
 
-from pysirc import decoder
+from pysdrc import decoder
 
 pulsein = pulseio.PulseIn(board.D9, maxlen=120, idle_state=True)
 generic_decoder = adafruit_irremote.GenericDecode()

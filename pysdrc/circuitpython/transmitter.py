@@ -32,7 +32,7 @@ import time
 
 import pulseio
 
-from pysirc import encoder
+from pysdrc import encoder
 
 # This is very annoying: different CircuitPython ports have different interfaces
 # for the PulseOut class, so we need to abstract the PulseOut creation ourselves.

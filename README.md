@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2020 Diego Elio Pettenò
 SPDX-License-Identifier: MIT
 -->
 
-# Python Infrared Commands Decoder/Encoder
+# Python Software Defined Remote Control
 
 This started as a rough implementation of the SIRC infrared transmission protocol as used
 by Sony TV and equipment, aimed at being used with

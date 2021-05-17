@@ -4,7 +4,7 @@
 
 import unittest
 
-from pysirc import encoder
+from pysdrc import encoder
 
 
 class EncoderTest(unittest.TestCase):

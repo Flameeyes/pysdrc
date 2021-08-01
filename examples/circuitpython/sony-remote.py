@@ -100,4 +100,4 @@ while True:
         else:
             raise ValueError("Unknown command %r" % request)
     except Exception as error:
-        print("ERROR", error, flush=True)
+        print("ERROR", error)

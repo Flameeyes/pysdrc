@@ -46,7 +46,7 @@ class Transmitter:
         self,
         pin,
         carrier_frequency: int = 38_000,
-        duty_cycle: int = 2 ** 15,
+        duty_cycle: int = 2**15,
         default_repeat: int = 1,
     ) -> None:
         if sys.platform in _PULSEOUT_NO_CARRIER_PLATFORMS:
@@ -86,7 +86,7 @@ class SIRCTransmitter(Transmitter):
         self,
         pin,
         carrier_frequency: int = 40_000,
-        duty_cycle: int = 2 ** 15,
+        duty_cycle: int = 2**15,
         default_repeat: int = 4,
     ) -> None:
         super().__init__(

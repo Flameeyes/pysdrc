@@ -33,20 +33,20 @@ def _sirc_value_to_pulses(value: int, bits: int) -> list:
 def encode_sirc(
     command: int, device: int, extended_device=None, force_8bit_device: bool = False
 ) -> list:
-    if command >= 2 ** 12:
+    if command >= 2**12:
         raise EncodeError("Invalid command %x" % command)
     if extended_device:
-        if extended_device >= 2 ** 8:
+        if extended_device >= 2**8:
             raise EncodeError("Invalid extended device %x" % extended_device)
-        if device >= 2 ** 5:
+        if device >= 2**5:
             raise EncodeError("Invalid device %x" % device)
     else:
-        if device >= 2 ** 8:
+        if device >= 2**8:
             raise EncodeError("Invalid device ID %x" % device)
 
     pulses = [2400, 600]
     pulses.extend(_sirc_value_to_pulses(command, 7))
-    if device >= 2 ** 5 or force_8bit_device:
+    if device >= 2**5 or force_8bit_device:
         pulses.extend(_sirc_value_to_pulses(device, 8))
     else:
         pulses.extend(_sirc_value_to_pulses(device, 5))
@@ -73,12 +73,12 @@ def _nec_value_to_pulses(value: int, bits: int) -> list:
 
 
 def encode_nec(address: int, command: int) -> list:
-    if command >= 2 ** 8:
+    if command >= 2**8:
         raise EncodeError("Invalid command %x" % command)
 
-    if address >= 2 ** 16:
+    if address >= 2**16:
         raise EncodeError("Invalid address %x" % address)
-    elif address >= 2 ** 8:
+    elif address >= 2**8:
         address_low = address & 0xFF
         address_high = (address >> 8) & 0xFF
 
